@@ -1,0 +1,12 @@
+.user
+  p(style="border-right: 1px solid white") Hi #{name}
+  form(action="/logout?_method=DELETE" method="POST")
+    button(type='submit') Logout
+nav.navbar
+  .container
+    a.navbar-brand(href='/') Art.Design
+    .navbar-nav
+      a(href='/') home
+      a(href='') design
+      a(href='') blog
+      a(href='/contact') contact
