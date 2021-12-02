@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
+const csurf = require("csurf");
+
+const csrfProtection = csurf();
+router.use(csrfProtection);
 
 router.get("/edit/:id", async (req, res) => {
     const { id } = req.params;
     const article = await Article.findById(id);
-    res.render('edit', { name: req.user.username, article });
+    res.render('edit', { name: req.user.username, article, csrfToken: req.csrfToken() });
 })
 
 router.post("/edit/:id", async (req, res) => {
@@ -16,7 +20,7 @@ router.post("/edit/:id", async (req, res) => {
 })
 
 router.get("/new", (req, res) => {
-    return res.render("new", { name: req.user.username });
+    return res.render("new", { name: req.user.username, csrfToken: req.csrfToken() });
 })
 
 router.post("/new", async (req, res) => {
@@ -42,7 +46,7 @@ router.get('/search', async (req, res) => {
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
     const article = await Article.findById(id);
-    res.render("blog", { name: req.user.username, article });
+    res.render("blog", { name: req.user.username, article, csrfToken: req.csrfToken() });
 })
 
 router.delete("/:id", async (req, res) => {

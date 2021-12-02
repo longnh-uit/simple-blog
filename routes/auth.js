@@ -3,6 +3,10 @@ const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const passport = require('passport');
+const csurf = require("csurf");
+
+const csrfProtection = csurf();
+router.use(csrfProtection);
 
 const initializePassport = require('../config/passport-config');
 initializePassport(
@@ -12,7 +16,7 @@ initializePassport(
 )
 
 router.get("/login", function (req, res) {
-    res.render("login");
+    res.render("login", { csrfToken: req.csrfToken() });
 });
 
 router.post("/login", passport.authenticate('local', {
@@ -22,7 +26,7 @@ router.post("/login", passport.authenticate('local', {
 }));
 
 router.get("/signup", (req, res) => {
-    res.render("sign_up");
+    res.render("sign_up", { csrfToken: req.csrfToken() });
 })
 
 router.post("/signup", async (req, res) => {

@@ -7,6 +7,7 @@
 .form-group 
     p Content
     textarea#markdown(rows="10" required type='text' name='markdown')
+    input(type='hidden' name='_csrf' value=csrfToken)
 .form-group 
     a.special-btn(href='/') Cancel
     a.special-btn(onclick='submitform();') Save

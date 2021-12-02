@@ -24,6 +24,7 @@ include _header
     h3 Leave a comment: 
     form(action="/article/comment/"+article._id method="POST")
       textarea#comment(name="comment", cols="30", rows="3")
+      input(type='hidden' name='_csrf' value=csrfToken)
       button(type="submit" style="display: block") Send
   .comment-list(style="margin: 33px 0")
     each comment in article.comments 

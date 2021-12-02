@@ -47,7 +47,7 @@ app.delete("/logout", (req, res) => {
     res.redirect("/auth/login");
 })
 
-app.get("/contact", (req, res) => {
+app.get("/contact", checkAuthenticated, (req, res) => {
     res.render("contact",  { name: req.user.username });
 })
 
@@ -58,6 +58,17 @@ app.post("/contact", async (req, res) => {
     }
     catch (error) {
         res.redirect("/contact");
+    }
+})
+
+app.get('/search', checkAuthenticated, async (req, res) => {
+    const keyword = req.query.keyword;
+    try {
+        const articles = await Article.find({ title: new RegExp('^.*'+ keyword +'.*$', "i")});
+        
+        return res.render("search", { articles });
+    } catch (error) {
+        res.redirect('/');
     }
 })
 

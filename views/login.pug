@@ -17,5 +17,6 @@ body(background="../images/background.jpg")
       p Password
       input(type='password' name='password' placeholder='Enter Password')
       input(type='submit' value='Login')
+      input(type='hidden' name='_csrf' value=csrfToken)
       a(href='/auth/signup') Don&apos;t have an account?
 

@@ -19,4 +19,5 @@ body(background="../images/background.jpg")
       p Confirm password
       input(type='password' name='confirmPassword' placeholder='Enter Password')
       input(type='submit' name='' value='Sign Up')
+      input(type='hidden' name='_csrf' value=csrfToken)
       a(href='/auth/login') Already have an account?
