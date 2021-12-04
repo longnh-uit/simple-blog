@@ -20,7 +20,12 @@ router.post("/edit/:id", async (req, res) => {
 })
 
 router.get("/new", (req, res) => {
-    return res.render("new", { name: req.user.username, csrfToken: req.csrfToken() });
+    const article = { 
+        title: "",
+        description: "",
+        markdown: ""
+    } // trickster
+    return res.render("new", { name: req.user.username, csrfToken: req.csrfToken(), article });
 })
 
 router.post("/new", async (req, res) => {

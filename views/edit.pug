@@ -17,8 +17,3 @@ section
     // form
     form#save(action="/article/edit/"+article._id method="POST")
       include _form_field
-
-script.
-  document.getElementById("title").setAttribute("value", !{JSON.stringify(article)}.title);
-  document.getElementById("description").innerHTML = !{JSON.stringify(article)}.description;
-  document.getElementById("markdown").innerHTML = !{JSON.stringify(article)}.markdown;

@@ -75,5 +75,7 @@ app.get('/search', checkAuthenticated, async (req, res) => {
 app.use("/auth", checkNotAuthenticated, require("./routes/auth"));
 app.use("/article", checkAuthenticated, require("./routes/article"));
 
-app.listen(process.env.PORT || 3000);
-console.log("Server is listening on");
+const port = process.env.PORT || 3000;
+
+app.listen(port);
+console.log("Server is listening on", port);

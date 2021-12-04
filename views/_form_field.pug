@@ -1,12 +1,12 @@
 .form-group    
     p Title
-    input#title(required type='text' name='title')
+    input#title(required type='text' name='title' value=article.title)
 .form-group 
     p Description
-    textarea#description(rows="5" required type='text' name='description')
+    textarea#description(rows="5" required type='text' name='description')= article.description
 .form-group 
     p Content
-    textarea#markdown(rows="10" required type='text' name='markdown')
+    textarea#markdown(rows="10" required type='text' name='markdown')= article.markdown
     input(type='hidden' name='_csrf' value=csrfToken)
 .form-group 
     a.special-btn(href='/') Cancel
