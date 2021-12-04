@@ -66,7 +66,7 @@ app.get('/search', checkAuthenticated, async (req, res) => {
     try {
         const articles = await Article.find({ title: new RegExp('^.*'+ keyword +'.*$', "i")});
         
-        return res.render("search", { articles });
+        return res.render("search", { name: req.user.username, articles });
     } catch (error) {
         res.redirect('/');
     }
@@ -75,5 +75,5 @@ app.get('/search', checkAuthenticated, async (req, res) => {
 app.use("/auth", checkNotAuthenticated, require("./routes/auth"));
 app.use("/article", checkAuthenticated, require("./routes/article"));
 
-app.listen(3000);
-console.log("Server is listening on port 3000");
+app.listen(process.env.PORT || 3000);
+console.log("Server is listening on");
