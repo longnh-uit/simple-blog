@@ -24,6 +24,7 @@ header
 // end of header
 // design
 section#blog.blog
+  input#csrf(type='hidden' name='_csrf' value=csrfToken)
   .container
     a.special-btn(href='/article/new' style="margin: auto 1rem") New blog
     .title
@@ -40,7 +41,7 @@ section#blog.blog
             a.special-btn(href='/article/'+article._id) Read More
             if article.author == name
               a.special-btn(href='/article/edit/'+article._id) Edit
-              button(type='submit' onclick="deleteArticle('" + article._id + "')") Delete
+              button(type='submit' onclick="deleteArticle('" + article._id + "')" value=csrfToken) Delete
       
   
   script.
@@ -48,6 +49,9 @@ section#blog.blog
       $.ajax({
         type: "DELETE",
         url: "/article/" + id,
+        data: {
+          _csrf: $("#csrf").attr("value")
+        },
         success: () => {
           location.reload();
         }

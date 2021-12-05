@@ -1,12 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
-const csurf = require("csurf");
-
-const ignoreMethods = ["GET", "DELETE"];
-
-const csrfProtection = csurf({ignoreMethods});
-router.use(csrfProtection);
 
 router.get("/edit/:id", async (req, res) => {
     const { id } = req.params;

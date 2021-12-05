@@ -11,7 +11,10 @@ const Article = require("./models/article");
 const Contact = require("./models/contact");
 const passport = require("passport");
 const mongoSanitize = require('express-mongo-sanitize');
+const csurf = require("csurf");
 const { checkAuthenticated, checkNotAuthenticated } = require("./middleware/auth");
+
+const csrfProtection = csurf();
 
 try {
     mongoose.connect('mongodb://blogUser:password123@localhost:27017/blog');
@@ -29,6 +32,7 @@ app.use(flash());
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(csrfProtection);
 app.use(mongoSanitize());
 
 app.set('view engine', 'pug');
@@ -37,7 +41,7 @@ app.set('view engine', 'pug');
 app.get("/", checkAuthenticated, async function (req, res) {
     const articles = await Article.find();
 
-    res.render('homepage', { name: req.user.username, articles });
+    res.render('homepage', { name: req.user.username, articles, csrfToken: req.csrfToken() });
 });
 
 app.delete("/logout", (req, res) => {

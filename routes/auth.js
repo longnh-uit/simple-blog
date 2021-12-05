@@ -3,10 +3,6 @@ const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const passport = require('passport');
-const csurf = require("csurf");
-
-const csrfProtection = csurf();
-router.use(csrfProtection);
 
 const initializePassport = require('../config/passport-config');
 initializePassport(

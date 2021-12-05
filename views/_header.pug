@@ -10,11 +10,16 @@ nav.navbar
       a(href='') blog
       a(href='/contact') contact
 
+input#csrf(type='hidden' name='_csrf' value=csrfToken)
+
 script.
   function logout() {
     $.ajax({
       type: "DELETE",
       url: "/logout",
+      data: {
+        _csrf: $("#csrf").attr("value")
+      },
       success: () => {
         location.reload();
       }
