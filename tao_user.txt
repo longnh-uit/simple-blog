@@ -1,0 +1,25 @@
+
+db.createRole({
+    role: "readWriteBlog",
+    privileges: [
+        { 
+            resource: { db: "blog", collection: "users"},
+            actions: ["find", "insert"]
+        },
+        {
+            resource: { db: "blog", collection: "contacts"},
+            actions: ["find", "insert"]
+        },
+        {
+            resource: { db: "blog", collection: "articles"},
+            actions: ["find", "insert", "update", "remove"]
+        }
+    ],
+    roles: []
+})
+
+db.createUser({
+    user: "blogUser",
+    pwd: "password123",
+    roles: [{ role: "readWriteBlog", db: "blog" }]
+})

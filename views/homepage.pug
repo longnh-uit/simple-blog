@@ -5,6 +5,7 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   // font awesome icon
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' integrity='sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==' crossorigin='anonymous' referrerpolicy='no-referrer')
+  script(src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous")
   title Blog
   link(rel='stylesheet' type='text/css' href='/style.css')
 // header
@@ -39,7 +40,18 @@ section#blog.blog
             a.special-btn(href='/article/'+article._id) Read More
             if article.author == name
               a.special-btn(href='/article/edit/'+article._id) Edit
-              form(action="/article/"+article._id+"?_method=DELETE", method="post" style="display: inline-block") 
-                button(type='submit') Delete
+              button(type='submit' onclick="deleteArticle('" + article._id + "')") Delete
+      
+  
+  script.
+    function deleteArticle(id) {
+      $.ajax({
+        type: "DELETE",
+        url: "/article/" + id,
+        success: () => {
+          location.reload();
+        }
+      });
+    }
       // end of item
 // end of design

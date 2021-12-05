@@ -10,12 +10,11 @@ const session = require("express-session");
 const Article = require("./models/article");
 const Contact = require("./models/contact");
 const passport = require("passport");
-const methodOverride = require("method-override");
 const mongoSanitize = require('express-mongo-sanitize');
 const { checkAuthenticated, checkNotAuthenticated } = require("./middleware/auth");
 
 try {
-    mongoose.connect('mongodb://localhost:27017/blog');
+    mongoose.connect('mongodb://blogUser:password123@localhost:27017/blog');
     console.log('DB connected');
 } catch (error) {
     console.log('Error: ' + error.message);
@@ -23,7 +22,6 @@ try {
 
 app.use(express.static("./public"));
 app.use(express.json());
-app.use(methodOverride('_method'))
 app.use(express.urlencoded({
     extended: true
 }));
@@ -44,7 +42,7 @@ app.get("/", checkAuthenticated, async function (req, res) {
 
 app.delete("/logout", (req, res) => {
     req.logOut();
-    res.redirect("/auth/login");
+    res.send();
 })
 
 app.get("/contact", checkAuthenticated, (req, res) => {

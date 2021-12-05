@@ -1,7 +1,6 @@
 .user
   p(style="border-right: 1px solid white") Hi #{name}
-  form(action="/logout?_method=DELETE" method="POST")
-    button(type='submit') Logout
+  button(type='submit' onclick="logout()") Logout
 nav.navbar
   .container
     a.navbar-brand(href='/') Art.Design
@@ -10,3 +9,14 @@ nav.navbar
       a(href='') design
       a(href='') blog
       a(href='/contact') contact
+
+script.
+  function logout() {
+    $.ajax({
+      type: "DELETE",
+      url: "/logout",
+      success: () => {
+        location.reload();
+      }
+    })
+  }
