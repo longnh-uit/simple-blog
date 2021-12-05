@@ -7,7 +7,10 @@ const passport = require('passport');
 const initializePassport = require('../config/passport-config');
 initializePassport(
     passport, 
-    username => User.findOne({ username }),
+    username => {
+        console.log(username);
+        return User.findOne({ username })
+    },
     id => User.findById(id).then(user => user)
 )
 
